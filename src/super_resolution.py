@@ -1,4 +1,4 @@
-# super_resolution.py
+# super_resolution.py Raghvendra
 import cv2
 
 def super_resolve(image, method='bicubic'):

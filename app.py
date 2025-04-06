@@ -1,12 +1,12 @@
 import streamlit as st
-import cv2
+import cv2  # type: ignore
 import numpy as np
-import graphviz
+import graphviz  # type: ignore
 import os
-from streamlit_sortables import sort_items
+from streamlit_sortables import sort_items  # type: ignore
 
 # Import feature functions from respective modules
-from src.preprocessing import reduce_noise
+from src.preprocessing import preprocess_image
 from src.edge_detection import detect_edges
 from src.super_resolution import super_resolve
 from src.object_detection import detect_objects
@@ -27,8 +27,19 @@ if 'selected_features' not in st.session_state:
 # ----------------------------
 feature_categories = {
     "Preprocessing & Noise Reduction": {
-        "Gaussian Noise Reduction": lambda img: reduce_noise(img, method='gaussian'),
-        "Median Noise Reduction": lambda img: reduce_noise(img, method='median')
+        "Gaussian Blur": lambda img: preprocess_image(img, "gaussian"),
+        "Bilateral Filter": lambda img: preprocess_image(img, "bilateral"),
+        "Median Filter": lambda img: preprocess_image(img, "median"),
+        "Sharpening": lambda img: preprocess_image(img, "sharpen"),
+        "Denoising": lambda img: preprocess_image(img, "denoise"),
+        "Histogram Equalization": lambda img: preprocess_image(img, "hist_eq"),
+        "CLAHE": lambda img: preprocess_image(img, "clahe"),
+        "Gamma Correction": lambda img: preprocess_image(img, "gamma"),
+        "Grayscale Conversion": lambda img: preprocess_image(img, "grayscale"),
+        "HSV Conversion": lambda img: preprocess_image(img, "hsv"),
+        "Rotation": lambda img: preprocess_image(img, "rotate", angle=90),
+        "Flipping": lambda img: preprocess_image(img, "flip", direction=1),
+        "Normalization": lambda img: preprocess_image(img, "normalize_minmax"),
     },
     "Edge Detection & Feature Extraction": {
         "Canny Edge Detection": lambda img: cv2.cvtColor(detect_edges(img, method='canny'), cv2.COLOR_GRAY2BGR),
@@ -54,20 +65,20 @@ feature_categories = {
 st.sidebar.header("Feature Controls")
 st.sidebar.markdown("Select methods under each category and reorder them below:")
 
-# Display feature categories and methods with '+' and '-' buttons
+# Expandable category selection
 for category, methods in feature_categories.items():
-    st.sidebar.subheader(category)
-    for method, function in methods.items():
-        col1, col2, col3 = st.sidebar.columns([0.15, 0.7, 0.15])
-        with col1:
-            if st.button("➖", key=f"remove_{method}"):
-                if method in st.session_state.selected_features:
-                    st.session_state.selected_features.remove(method)
-        with col2:
-            st.markdown(f"<div style='padding:5px;'>{method}</div>", unsafe_allow_html=True)
-        with col3:
-            if st.button("➕", key=f"add_{method}"):
-                st.session_state.selected_features.append(method)
+    with st.sidebar.expander(category, expanded=False):
+        for method, function in methods.items():
+            col1, col2, col3 = st.columns([0.15, 0.7, 0.15])
+            with col1:
+                if st.button("➖", key=f"remove_{method}"):
+                    if method in st.session_state.selected_features:
+                        st.session_state.selected_features.remove(method)
+            with col2:
+                st.markdown(f"<div style='padding:5px;'>{method}</div>", unsafe_allow_html=True)
+            with col3:
+                if st.button("➕", key=f"add_{method}"):
+                    st.session_state.selected_features.append(method)
 
 # Display and reorder selected features
 if st.session_state.selected_features:
@@ -75,36 +86,64 @@ if st.session_state.selected_features:
     st.session_state.selected_features = sort_items(st.session_state.selected_features)
 
 # ----------------------------
-# Main Layout: Image Upload and Display
+# Image Selection / Upload
 # ----------------------------
 
-# Default image path
-default_image_path = os.path.join("assets", "sample.jpg")
+st.sidebar.subheader("Select or Upload Image")
+default_images = {
+    "Sample 1": "assets/sample1.jpg",
+    "Sample 2": "assets/sample2.jpg",
+    "Sample 3": "assets/sample3.jpg"
+}
 
-# File uploader
-uploaded_file = st.file_uploader("Upload an Image", type=["jpg", "jpeg", "png"])
+# Radio button to choose sample image or upload
+selected_option = st.sidebar.radio("Choose Image", list(default_images.keys()) + ["Upload Your Own"])
 
-if uploaded_file is not None:
-    # Read the uploaded image
-    file_bytes = np.asarray(bytearray(uploaded_file.read()), dtype=np.uint8)
-    original_image = cv2.imdecode(file_bytes, 1)
+if selected_option == "Upload Your Own":
+    uploaded_file = st.sidebar.file_uploader("Upload an Image", type=["jpg", "jpeg", "png"])
+    if uploaded_file is not None:
+        file_bytes = np.asarray(bytearray(uploaded_file.read()), dtype=np.uint8)
+        original_image = cv2.imdecode(file_bytes, 1)
+    else:
+        original_image = cv2.imread(default_images["Sample 1"])  # Default fallback
 else:
-    # Load the default image if no upload
-    original_image = cv2.imread(default_image_path)
+    original_image = cv2.imread(default_images[selected_option])
 
-# Process the image by applying selected features in order
+# ----------------------------
+# Image Processing
+# ----------------------------
 processed_image = original_image.copy()
 for feature in st.session_state.selected_features:
     for category, methods in feature_categories.items():
         if feature in methods:
             processed_image = methods[feature](processed_image)
 
-# Display the images with proper formatting
+# ----------------------------
+# Display Images (CSS-Based Responsive Sizing)
+# ----------------------------
+
+# Inject CSS for responsive image display
+st.markdown(
+    """
+    <style>
+        .responsive-img {
+            width: 30vw; /* 30% of viewport width */
+            height: auto; /* Maintain aspect ratio */
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
+# Display images side by side
 col1, col2 = st.columns([1, 1])
 with col1:
-    st.image(cv2.cvtColor(original_image, cv2.COLOR_BGR2RGB), caption="Original Image", use_container_width=True)
+    st.image(cv2.cvtColor(original_image, cv2.COLOR_BGR2RGB), caption="Original Image", use_container_width=False, output_format="PNG")
 with col2:
-    st.image(cv2.cvtColor(processed_image, cv2.COLOR_BGR2RGB), caption="Processed Image", use_container_width=True)
+    st.image(cv2.cvtColor(processed_image, cv2.COLOR_BGR2RGB), caption="Processed Image", use_container_width=False, output_format="PNG")
 
 # ----------------------------
 # DAG Visualization of Applied Features
