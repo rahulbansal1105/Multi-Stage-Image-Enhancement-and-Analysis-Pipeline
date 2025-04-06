@@ -11,6 +11,14 @@ The pipeline consists of the following stages:
 4. **Object Detection & Segmentation:** Applies models (e.g., YOLO) to detect objects and segment images.
 5. **Image Compression & Downscaling:** Reduces image file size using compression techniques like JPEG.
 
+
+## Live App Demo
+
+You can try out the live version of the app by clicking on the link below:
+
+[Live Demo of the App](https://multi-stage-image-enhancement-and-analysis-pipeline.streamlit.app/)
+
+
 ## Repository Contents
 
 - **src/**: Contains individual modules for each processing stage and a pipeline integration module.
