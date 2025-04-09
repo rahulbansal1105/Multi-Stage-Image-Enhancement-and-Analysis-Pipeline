@@ -10,7 +10,7 @@ import cv2
 import torch
 import torch.nn as nn
 import torchvision.transforms as transforms
-from network_swinir import SwinIR
+from models.network_swinir import SwinIR
 from torchvision.transforms import ToTensor
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -41,7 +41,7 @@ def run_srcnn(image: Image.Image) -> Image.Image:
             return x
     
     model = SRCNN().to(device)
-    model_path = os.path.join(project_root, 'models/srcnn_x4.pth')
+    model_path = os.path.join(project_root, 'weights/srcnn_x4.pth')
     model.load_state_dict(torch.load( model_path, map_location=device))
     model.eval()
 
@@ -73,7 +73,7 @@ def run_swinir(image):
     with torch.no_grad():
         output = model(image) 
     
-    output_image = postprocess_image(output)  # Post-process the result
+    output_image = postprocess_image(output)
     return output_image
 
 
@@ -81,8 +81,7 @@ def super_resolve(image, method='bicubic'):
     super_res_methods = {
         "bicubic": run_bicubic,
         "srcnn": run_srcnn,
-        "esrgan": run_esrgan,
-        "swinir": run_swinir,
+        "swinir": run_swinir
     }
 
     return super_res_methods[method](image)
@@ -124,4 +123,3 @@ if __name__ == '__main__':
 
     save_image(output_image, output_path)
     
-
