@@ -47,7 +47,9 @@ feature_categories = {
     },
     "Super-Resolution / Image Reconstruction": {
         "Bicubic Super-Resolution": lambda img: super_resolve(img, method='bicubic'),
-        "Nearest-Neighbor Super-Resolution": lambda img: super_resolve(img, method='nearest')
+        "Nearest-Neighbor Super-Resolution": lambda img: super_resolve(img, method='nearest_neighbor'),
+        "Convolutional Neural Network Super-Resolution": lambda img: super_resolve(img, method='srcnn'),
+        "Swin Transformer for Image Restoration": lambda img: super_resolve(img, method='swinir')
     },
     "Object Detection & Segmentation": {
         "YOLO Object Detection": lambda img: detect_objects(img, method='yolo')[0],

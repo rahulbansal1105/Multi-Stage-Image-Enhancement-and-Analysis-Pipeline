@@ -2,6 +2,7 @@
 
 import argparse
 import os
+import sys
 import requests
 import numpy as np
 from PIL import Image
@@ -10,8 +11,11 @@ import cv2
 import torch
 import torch.nn as nn
 import torchvision.transforms as transforms
-from models.network_swinir import SwinIR
 from torchvision.transforms import ToTensor
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from models.network_swinir import SwinIR
+
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 base_dir = os.path.dirname(os.path.abspath(__file__))
@@ -22,6 +26,13 @@ def run_bicubic(image, scale=4):
     width, height = image.size
     new_size = (width * scale, height * scale)
     return image.resize(new_size, Image.BICUBIC)
+
+
+def run_nearest_neighbor(image):
+    image_np = np.array(image)
+    upscaled_img = cv2.resize(image_np, None, fx=4, fy=4, interpolation=cv2.INTER_NEAREST)
+    upscaled_img_pil = Image.fromarray(cv2.cvtColor(upscaled_img, cv2.COLOR_BGR2RGB))
+    return upscaled_img_pil
 
 
 def run_srcnn(image: Image.Image) -> Image.Image:
@@ -80,6 +91,7 @@ def run_swinir(image):
 def super_resolve(image, method='bicubic'):
     super_res_methods = {
         "bicubic": run_bicubic,
+        "nearest_neighbor": run_nearest_neighbor,
         "srcnn": run_srcnn,
         "swinir": run_swinir
     }
@@ -105,7 +117,7 @@ def save_image(image, output_path):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Super Resolution CLI")
     parser.add_argument("--input", type=str, required=True, help="Path to input image")
-    parser.add_argument("--method", type=str, default="bicubic", choices=["bicubic", "srcnn", "esrgan", "swinir"], help="Super resolution method")
+    parser.add_argument("--method", type=str, default="bicubic", choices=["bicubic", "srcnn", "nearest_neighbor", "swinir"], help="Super resolution method")
     parser.add_argument("--output", type=str, help="Path to save output image (optional)")
 
     args = parser.parse_args()
