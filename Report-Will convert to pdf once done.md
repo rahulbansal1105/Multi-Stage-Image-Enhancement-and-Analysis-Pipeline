@@ -41,7 +41,9 @@ For each stage following algorithm are used
 Landing page Screenshot
 
 Subsection
+**Segmentation**
 
+<img src="assets\SegmenationScreenshot.png" width="500" height="400">
 
 # Contribution of Each member
 
@@ -110,11 +112,11 @@ SRCNN Super-Resolution: Enhances the image using the SRCNN deep learning model.
 
 SwinIR Super-Resolution: Restores the image quality using the Swin Transformer-based model.
 
-**M24DE2024** (Rahul Bansal)	
+**M24DE2024** (Rahul Bansal)	: Implementated slic segmentation		
 
 **M24DE2025** (Saurav Suman)	
 
 **M24DE2032** (Srishty Suman)	
 
-**M24DE2035** (Tarun Prajapati)	
+**M24DE2035** (Tarun Prajapati)	:Designed complete framework and deployed it.
 
