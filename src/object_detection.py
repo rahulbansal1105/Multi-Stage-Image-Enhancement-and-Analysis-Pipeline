@@ -1,21 +1,24 @@
 # object_detection.py
 import cv2
+from skimage.segmentation import slic
+from skimage.color import label2rgb
 
-def detect_objects(image, method='yolo'):
+def detect_objects(image, method='slic'):
     """
     Detect objects in the image.
     
     Parameters:
         image (numpy.ndarray): Input image.
-        method (str): Object detection method ('yolo', 'faster_rcnn', etc.).
+        method (str): Object detection method ('slic'.).
     
     Returns:
         tuple: Processed image and a list of detected bounding boxes.
     """
-    height, width = image.shape[:2]
-    if method == 'yolo':
+    if method == 'slic':
         # Dummy bounding box for demonstration purposes
-        boxes = [(int(width*0.3), int(height*0.3), int(width*0.6), int(height*0.6))]
-        return image, boxes
+        image_segments=slic(image,n_segments=20,compactness=13)
+        final_image=label2rgb(image_segments,image,kind='avg')
+        return final_image
     else:
-        return image, []
+        return image
+
