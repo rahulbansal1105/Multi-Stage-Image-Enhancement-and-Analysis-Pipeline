@@ -8,7 +8,7 @@ scikit-image>=0.18.0
 scipy>=1.7.0
 graphviz>=0.16
 streamlit-sortables>=0.2.0
-torch==2.0.1
+torch==2.2.0
 torchvision==0.15.2
 torchaudio==2.0.2
 gdown==5.1.0
