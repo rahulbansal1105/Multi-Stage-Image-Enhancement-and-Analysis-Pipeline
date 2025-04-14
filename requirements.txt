@@ -15,3 +15,4 @@ gdown
 basicsr
 realesrgan
 timm
+ultralytics
