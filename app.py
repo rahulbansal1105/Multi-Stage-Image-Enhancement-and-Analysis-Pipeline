@@ -54,6 +54,7 @@ feature_categories = {
     "Object Detection & Segmentation": {
         "SLIC": lambda img: detect_objects(img, method='slic'),
         "YOLO": lambda img: detect_objects(img, method='yolo'),
+        "RetinaNet": lambda img: detect_objects(img, method='RetinaNet'),
         #"Contour-Based Segmentation": lambda img: detect_objects(img, method='contour')[0]
     },
     "Image Compression & Downscaling": {
