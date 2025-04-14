@@ -52,7 +52,8 @@ feature_categories = {
         "Swin Transformer for Image Restoration": lambda img: super_resolve(img, method='swinir')
     },
     "Object Detection & Segmentation": {
-        "SLIC Object Detection": lambda img: detect_objects(img, method='slic'),
+        "SLIC": lambda img: detect_objects(img, method='slic'),
+        "YOLO": lambda img: detect_objects(img, method='yolo'),
         #"Contour-Based Segmentation": lambda img: detect_objects(img, method='contour')[0]
     },
     "Image Compression & Downscaling": {
