@@ -118,7 +118,9 @@ Implementated slic segmentation
 
 <span style="background-color: lightblue; display: block; width: 100%;">**M24DE2025** (Saurav Suman)
 Implementation RetinaNet:
+
 RetinaNet is a one-stage object detection model that combines speed and high accuracy, especially for detecting small or overlapping objects. It uses a backbone like ResNet with a Feature Pyramid Network (FPN) to extract rich, multi-scale features. Unlike other detectors, RetinaNet introduces Focal Loss, which focuses learning on hard, misclassified examples and reduces the impact of easy negatives. This makes it highly effective in handling class imbalance, a common issue in dense object detection. With its streamlined architecture and powerful loss function, RetinaNet bridges the gap between fast detectors like YOLO and accurate ones like Faster R-CNN.
+
 Steps
 1.  Installing Tourch, Tourch Vision & RetinaNet (ResNet 50)
 2.  Loading a pretrained retinanet_resnet50_fpn Model using torchvision.models.detection
@@ -129,6 +131,7 @@ Steps
 
 <span style="background-color: lightblue; display: block; width: 100%;">**M24DE2032** (Srishty Suman)	
 Implementation YOLO (V5):
+
 YOLOv5 is a fast, accurate one-stage object detection model developed by Ultralytics. It detects objects in a single forward pass using a CNN-based architecture, making it ideal for real-time applications. YOLOv5 uses CSPDarknet as a backbone, a PANet neck, and anchor-based predictions. It supports auto-learning bounding box anchors, data augmentation (like mosaic), and is implemented in PyTorch. YOLOv5 is lightweight, easy to train, and provides excellent speed-accuracy trade-off for applications like surveillance and autonomous driving.
 
 Steps
