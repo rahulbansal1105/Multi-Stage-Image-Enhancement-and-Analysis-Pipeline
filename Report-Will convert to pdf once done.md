@@ -15,7 +15,7 @@ The project is about designing a multi-stage image processing pipeline where eac
 - Preprocessing
 - Edge Detection 
 - Super Resolution 
-- Segmentation 
+- Object Detection & Segmentation 
 - Compression and Decompression
 
 # Approaches used 
@@ -23,14 +23,14 @@ For each stage following algorithm are used
 - **Preprocessing**
 - **Edge Detection**
 - **Super Resolution** 
-- **Segmentation**
+- **SLIC, YOLO & RetinaNet**
 - **Compression and Deceompression**
 
 # Results
 
 # Deployment link
 
-
+[https://multi-stage-image-enhancement-and-analysis-pipeline.streamlit.app/]
 
 # Github link
 
