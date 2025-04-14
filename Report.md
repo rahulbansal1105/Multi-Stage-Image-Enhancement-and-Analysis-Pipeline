@@ -30,22 +30,41 @@ For each stage following algorithm are used
 
 # Deployment link
 
-[https://multi-stage-image-enhancement-and-analysis-pipeline.streamlit.app/]
+{https://multi-stage-image-enhancement-and-analysis-pipeline.streamlit.app/]
 
 # Github link
 
-[https://github.com/praj-tarun/Multi-Stage-Image-Enhancement-and-Analysis-Pipeline.git]
+https://github.com/praj-tarun/Multi-Stage-Image-Enhancement-and-Analysis-Pipeline.git
 
 # ScreenShot
 
-Landing page Screenshot
+<span style="background-color: lightblue; display: block; width: 100%;">**Landing page Screenshot**</span>
+<br>
+<img src="Screenshots\landing Page.png" width="500" height="400" style="border: 2px solid black;">
+<br>
 
-Subsection
-**Segmentation**
 
+<span style="background-color: lightblue; display: block; width: 100%;">**Canny Edge Detection**</span>
+<br>
+<img src="Screenshots\Canny Edge Detection .png" width="500" height="400" style="border: 2px solid black;">
+<br>
+
+
+<span style="background-color: lightblue; display: block; width: 100%;">**Super resolution**</span>
+<br>
+<img src="Screenshots\Super resolution.png" width="500" height="400" style="border: 2px solid black;">
+<br>
+<br>
+<br>
+<br>
 <span style="background-color: lightblue; display: block; width: 100%;">**SLIC**</span>
 <br>
 <img src="Screenshots\SegmenationScreenshot.png" width="500" height="400" style="border: 2px solid black;">
+<br>
+<br>
+<hr>
+<br>
+<br>
 <br>
 <br>
 <span style="background-color: lightblue; display: block; width: 100%;">**RetinaNet**</span>
@@ -56,6 +75,7 @@ Subsection
 </div>
 <br>
 <br>
+
 <span style="background-color: lightblue; display: block; width: 100%;">**Yolo**</span>
 <br>
 <div style="display: flex; justify-content: space-between;">
@@ -65,6 +85,7 @@ Subsection
 </div>
 <br>
 <br>
+
 <span style="background-color: lightblue; display: block; width: 100%;">**Comparison of RetinaNet and Yolo**</span>
 <br>
 <img src="Screenshots\Comparison of Yolo and RetinaNet.jpg" width="500" height="400" style="border: 2px solid black;">
