@@ -2,11 +2,11 @@
 
 ## Group Number 22 - Members 
 
-- **M24DE2023**	Raghavendra G	<span style="background-color: lightblue;">`M24DE2023@iitj.ac.in`</span>
-- **M24DE2024**	Rahul Bansal	<span style="background-color: lightblue;">`M24DE2024@iitj.ac.in`</span>
-- **M24DE2025**	Saurav Suman	<span style="background-color: lightblue;">`M24DE2025@iitj.ac.in`</span>
-- **M24DE2032**	Srishty Suman	<span style="background-color: lightblue;">`M24DE2032@iitj.ac.in`</span>
-- **M24DE2035**	Tarun Prajapati	<span style="background-color: lightblue;">`M24DE2035@iitj.ac.in`</span>	
+- **M24DE2023**	Raghavendra G	<span style="background-color: lightblue;">M24DE2023@iitj.ac.in</span>
+- **M24DE2024**	Rahul Bansal	<span style="background-color: lightblue;">M24DE2024@iitj.ac.in</span>
+- **M24DE2025**	Saurav Suman	<span style="background-color: lightblue;">M24DE2025@iitj.ac.in</span>
+- **M24DE2032**	Srishty Suman	<span style="background-color: lightblue;">M24DE2032@iitj.ac.in</span>
+- **M24DE2035**	Tarun Prajapati	<span style="background-color: lightblue;">M24DE2035@iitj.ac.in</span>	
 			
 
 # Objective
