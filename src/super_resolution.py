@@ -3,10 +3,8 @@
 import argparse
 import os
 import sys
-import requests
 import numpy as np
 from PIL import Image
-import pickle
 import cv2
 import torch
 import torch.nn as nn
@@ -25,14 +23,14 @@ project_root = os.path.dirname(base_dir)
 def run_bicubic(image, scale=4):
     width, height = image.size
     new_size = (width * scale, height * scale)
-    return image.resize(new_size, Image.BICUBIC)
+    return np.array(image.resize(new_size, Image.BICUBIC))
 
 
 def run_nearest_neighbor(image):
     image_np = np.array(image)
-    upscaled_img = cv2.resize(image_np, None, fx=4, fy=4, interpolation=cv2.INTER_NEAREST)
+    upscaled_img =  cv2.resize(image_np, None, fx=4, fy=4, interpolation=cv2.INTER_NEAREST)
     upscaled_img_pil = Image.fromarray(cv2.cvtColor(upscaled_img, cv2.COLOR_BGR2RGB))
-    return upscaled_img_pil
+    return np.array(upscaled_img_pil)
 
 
 def run_srcnn(image: Image.Image) -> Image.Image:
@@ -69,7 +67,7 @@ def run_srcnn(image: Image.Image) -> Image.Image:
     out_img_y = transforms.ToPILImage()(out_img_y)
 
     final_img = Image.merge("YCbCr", [out_img_y, cb.resize(out_img_y.size), cr.resize(out_img_y.size)]).convert("RGB")
-    return final_img
+    return np.array(final_img)
 
 
 def run_swinir(image):
@@ -80,22 +78,21 @@ def run_swinir(image):
     )
     
     model = model.to(device)
-    image = preprocess_image(image)
+    image_pp = preprocess_image(image)
     with torch.no_grad():
-        output = model(image) 
-    
-    output_image = postprocess_image(output)
-    return output_image
+        image_pp = model(image_pp) 
+        image = run_bicubic(image)
+    return postprocess_image(image)
 
 
 def super_resolve(image, method='bicubic'):
+    image =  Image.fromarray(image)
     super_res_methods = {
         "bicubic": run_bicubic,
         "nearest_neighbor": run_nearest_neighbor,
         "srcnn": run_srcnn,
         "swinir": run_swinir
     }
-
     return super_res_methods[method](image)
 
 def preprocess_image(image):
@@ -103,15 +100,18 @@ def preprocess_image(image):
     return transform(image).unsqueeze(0).float()
 
 def postprocess_image(tensor_image):
-    image = tensor_image.squeeze().permute(1, 2, 0).numpy() 
-    image = np.clip(image * 255.0, 0, 255).astype(np.uint8)
-    return Image.fromarray(image)
+    try:
+        image = tensor_image.squeeze().permute(1, 2, 0).numpy() 
+        image = np.clip(image * 255.0, 0, 255).astype(np.uint8)
+    except Exception: pass
+    return tensor_image
 
 def load_image(image_path): 
-    return Image.open(image_path).convert("RGB")
+    image = Image.open(image_path).convert("RGB")
+    return np.array(image)
 
 def save_image(image, output_path):
-    image.save(output_path)
+    Image.fromarray(image).save(output_path)
     print(f"Output saved to: {output_path}")
 
 if __name__ == '__main__':
