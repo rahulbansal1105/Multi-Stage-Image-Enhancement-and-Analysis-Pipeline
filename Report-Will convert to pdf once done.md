@@ -118,5 +118,64 @@ SwinIR Super-Resolution: Restores the image quality using the Swin Transformer-b
 
 **M24DE2032** (Srishty Suman)	
 
-**M24DE2035** (Tarun Prajapati)	:Designed complete framework and deployed it.
+**M24DE2035** (Tarun Prajapati)	: I was responsible for the design, development, and deployment of the core application framework, along with a complete preprocessing module. 
+My contributions include:
+---
+
+### 🔧 Main Application
+
+- Designed the overall layout and interaction flow of the Streamlit application.
+- Developed a modular and scalable app structure, enabling easy integration of new features.
+- Implemented dynamic drag-and-drop functionality for applying and reordering image processing steps.
+- Deployed the fully working application to Streamlit Cloud with responsive UI and support for default images.
+
+---
+
+### 🧹 Preprocessing Module
+
+I independently developed and integrated the following preprocessing techniques into the app:
+
+- **Custom Denoising**  
+  Combined the original image with a Gaussian-blurred version to reduce noise while preserving image structure.
+
+- **Gaussian Blur**  
+  Applied a standard Gaussian kernel to reduce minor image noise.
+
+- **Bilateral Filter**  
+  Used edge-preserving smoothing to clean noise while retaining sharp transitions.
+
+- **Median Filter**  
+  Replaced each pixel with the median of its neighbors to remove salt-and-pepper noise.
+
+- **Sharpening**  
+  Enhanced fine details using an unsharp masking filter with tunable strength.
+
+- **Histogram Equalization**  
+  Improved overall contrast by redistributing pixel intensities.
+
+- **CLAHE**  
+  Applied adaptive histogram equalization to boost local contrast in limited regions.
+
+- **Gamma Correction**  
+  Performed brightness correction using non-linear intensity transformation.
+
+- **Grayscale Conversion**  
+  Converted color images to single-channel grayscale for simplified processing.
+
+- **HSV Conversion**  
+  Transformed the image into HSV space to separate color and intensity components.
+
+- **Rotation**  
+  Enabled image rotation using affine transformations for orientation adjustments.
+
+- **Flipping**  
+  Added support for vertical and horizontal mirroring to augment image layout.
+
+- **Normalization**  
+  Rescaled image intensity values to a consistent range for stable processing.
+
+---
+
+Each preprocessing method was built as a reusable function and integrated seamlessly into the pipeline, enabling users to apply and stack them in any order through the app interface.
+
 
