@@ -43,7 +43,31 @@ Landing page Screenshot
 Subsection
 **Segmentation**
 
-<img src="assets\SegmenationScreenshot.png" width="500" height="400">
+<span style="background-color: lightblue; display: block; width: 100%;">**SLIC**</span>
+<br>
+<img src="Screenshots\SegmenationScreenshot.png" width="500" height="400" style="border: 2px solid black;">
+<br>
+<br>
+<span style="background-color: lightblue; display: block; width: 100%;">**RetinaNet**</span>
+<br>
+<div style="display: flex; justify-content: space-between;">
+  <img src="Screenshots\RetinaNet 2.jpg" width="500" height="300" style="border: 2px solid black;">
+  <img src="Screenshots\RetinaNet.jpg" width="500" height="300" style="border: 2px solid black;">
+</div>
+<br>
+<br>
+<span style="background-color: lightblue; display: block; width: 100%;">**Yolo**</span>
+<br>
+<div style="display: flex; justify-content: space-between;">
+  <img src="Screenshots\Yolo.jpg" width="500" height="200" style="border: 2px solid black;">
+  <img src="Screenshots\Yolo2.jpg" width="500" height="200" style="border: 2px solid black;">
+  <img src="Screenshots\Yolo3.jpg" width="500" height="200" style="border: 2px solid black;">
+</div>
+<br>
+<br>
+<span style="background-color: lightblue; display: block; width: 100%;">**Comparison of RetinaNet and Yolo**</span>
+<br>
+<img src="Screenshots\Comparison of Yolo and RetinaNet.jpg" width="500" height="400" style="border: 2px solid black;">
 
 # Contribution of Each member
 
